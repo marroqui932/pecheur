@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Seules les personnes connectées (comptes créés dans Firebase Authentication)
+    // peuvent lire et modifier les commandes et les produits.
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
