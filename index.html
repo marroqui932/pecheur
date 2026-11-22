@@ -276,6 +276,10 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
  @page{margin:8mm}
 }
 /* ---------- thème pro ---------- */
+:root{--acc0:light-dark(#2563eb,#60a5fa);--accbg:light-dark(#eaf1fe,#13233f);--bg:light-dark(#f7f9fc,#0b0c0d);--card2:light-dark(#f0f4fa,#16181a)}
+:root{--acc:var(--acc0);--cta:var(--acc0)}
+.side .brand .logo{box-shadow:0 0 0 1px var(--line)}
+.kpi.g span::before{background:var(--ok)}
 .top{background:color-mix(in srgb,var(--card) 86%,transparent);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:10px}
 .top h1{font-size:15.5px;font-weight:650;letter-spacing:-.015em}.top h1 small{color:var(--mute);opacity:1;font-weight:500;font-size:12px}
 .logo{width:34px;height:34px;border-radius:9px}
@@ -285,16 +289,16 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 h2{font-weight:650;letter-spacing:-.02em}
 .btn{border-radius:9px;min-height:40px;padding:9px 15px;font-weight:600;font-size:14px;background:var(--seabg);color:var(--ink);transition:background .15s,border-color .15s,opacity .15s}
 .btn:hover{filter:brightness(.97)}
-.btn.pri{background:var(--lob);color:#fff;box-shadow:inset 0 1px 0 rgb(255 255 255/.15),0 1px 2px rgb(0 0 0/.1)}
-.btn.blue{background:var(--ink);color:var(--bg)}
+.btn.pri{background:var(--cta);color:#fff;box-shadow:inset 0 1px 0 rgb(255 255 255/.15),0 1px 2px rgb(0 0 0/.1)}
+.btn.blue{background:var(--acc);color:#fff}
 .btn.out{background:var(--card);border:1px solid var(--line);color:var(--ink);box-shadow:var(--sh)}
 .btn.sm{min-height:34px;padding:6px 11px;font-size:13px;border-radius:8px}
 .chip{border-radius:9px;min-height:38px;padding:7px 12px;font-weight:600;font-size:13.5px;box-shadow:none;gap:7px}
 .chip small{background:var(--seabg);color:var(--mute);border-radius:6px;font-weight:600;padding:0 6px;font-size:12px}
-.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}.chip.on small{background:rgb(255 255 255/.16);color:inherit}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}.chip.on small{background:rgb(255 255 255/.16);color:inherit}
 .chip.light{min-height:34px;border-radius:8px}
 input,select,textarea{border-radius:9px;min-height:42px;padding:9px 12px;font-size:16px;box-shadow:var(--sh)}
-input:focus,select:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 10%,transparent)}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent)}
 label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink)}
 .seg{border-radius:9px;padding:2px;gap:2px;background:var(--seabg);border-color:transparent}
 .seg button{border-radius:7px;min-height:34px;font-weight:600;font-size:13px}
@@ -311,7 +315,7 @@ label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink)}
 .kpi b{font-size:24px;font-weight:650;letter-spacing:-.03em}.kpi span{font-weight:500}
 .kpi.w b,.kpi.g b{color:var(--ink)}
 .kpi.w span::before,.kpi.g span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--amb)}.kpi.g span::before{background:var(--ok)}
-.prog{height:5px;background:var(--seabg)}.prog i{background:var(--ink)}
+.prog{height:5px;background:var(--seabg)}.prog i{background:var(--acc)}
 /* tickets */
 .tk{grid-template-columns:minmax(0,1fr);border-radius:12px;box-shadow:var(--sh)}
 .tk:hover{transform:none;border-color:color-mix(in srgb,var(--ink) 22%,var(--line));box-shadow:0 6px 20px rgb(0 0 0/.06)}
@@ -344,25 +348,25 @@ label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink)}
 /* produits */
 .pgroup h3{font-weight:650}
 .ugrp button{border-radius:8px;font-weight:600;min-height:38px}
-.ugrp button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.ugrp button.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .prow input,.prow select{min-height:38px}
-.pcard .ic{width:38px;height:38px;border-radius:9px;background:var(--seabg);color:var(--ink)}
+.pcard .ic{width:38px;height:38px;border-radius:9px;background:var(--accbg);color:var(--acc)}
 /* tiroir */
 .drawer{width:min(580px,100%)}
 .dh h2{font-size:16px}
 .days button{border-radius:9px;min-height:48px;font-weight:600}
-.days button.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}.days button.on small{color:inherit;opacity:.7}
+.days button.on{background:var(--acc);border-color:var(--acc);color:#fff}.days button.on small{color:inherit;opacity:.7}
 .ln{border-radius:10px}.ln .nm{font-weight:600}
 .step{border-radius:9px;background:var(--card)}.step button{color:var(--ink)}.step input{box-shadow:none}.step select{box-shadow:none}
 .adder{border-radius:12px;background:var(--card2)}
 .pchips button{border-radius:8px;font-weight:500;background:var(--card);font-size:13px;min-height:36px}
-.pchips button.has{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.pchips button.has{background:var(--acc);border-color:var(--acc);color:#fff}
 .tog{border-radius:10px;font-weight:500}
-.tog input{box-shadow:none}.tog input:checked{background:var(--ink)}
+.tog input{box-shadow:none}.tog input:checked{background:var(--acc)}
 .sumbox{border-radius:12px}.sumbox .tt{font-weight:650}
 .df .tot b{font-weight:650;letter-spacing:-.02em}
-.fab{border-radius:12px;font-weight:600;font-size:15px;padding:13px 18px 13px 15px;box-shadow:0 8px 24px rgb(229 83 61/.3),inset 0 1px 0 rgb(255 255 255/.15)}
-.tabbar a{font-weight:500}.tabbar a.on{color:var(--ink);font-weight:600}
+.fab{background:var(--cta);border-radius:12px;font-weight:600;font-size:15px;padding:13px 18px 13px 15px;box-shadow:0 8px 24px color-mix(in srgb,var(--cta) 35%,transparent),inset 0 1px 0 rgb(255 255 255/.15)}
+.tabbar a{font-weight:500}.tabbar a.on{color:var(--acc);font-weight:600}
 .dlg{border-radius:14px}
 /* connexion */
 .login{background:radial-gradient(90% 60% at 50% 0%,#2a2a2e 0%,#111113 55%,#0a0a0b 100%)}
@@ -375,6 +379,7 @@ label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink)}
  .side nav a{color:var(--mute);font-weight:500;padding:8px 10px;border-radius:8px;gap:10px;font-size:14px}
  .side nav a svg{width:18px;height:18px}
  .side nav a:hover{background:var(--seabg);color:var(--ink)}
+ .side nav a.on svg{color:var(--acc)}
  .side nav a.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0/.06),0 0 0 1px var(--line)}
  .side .sync{display:flex}
  .top{background:var(--bg);border:0;backdrop-filter:none;padding:26px 36px 8px}
