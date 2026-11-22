@@ -387,25 +387,87 @@ label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink)}
  main{padding:14px 36px 60px}
 }
 @media(max-width:700px){.kpis .kpi:nth-child(3){border-right:0}.kpi{padding:11px 13px}.kpi b{font-size:21px}.kpi span{font-size:12px}}
+/* ---------- mise en page v3 : onglets en haut, liste compacte ---------- */
+body{display:block!important}
+.side,.tabbar{display:none!important}
+:root{--tab:0px}
+.top{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--card) 90%,transparent)!important;backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)!important;padding:calc(10px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))!important}
+.top .in{flex-wrap:wrap;row-gap:0;max-width:1280px}
+.top .bar{display:flex;align-items:center;gap:12px;width:100%;padding-bottom:8px}
+.top .brandm{display:block!important}
+.top h1{font-size:15px!important;font-weight:650;letter-spacing:-.015em}.top h1 small{font-size:12px!important;color:var(--mute)}
+.top .sync{display:flex!important}
+.top .new{display:none}
+.top .lo{display:none}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;width:100%;margin:0 -4px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;display:flex;align-items:center;gap:7px;padding:10px 10px 11px;color:var(--mute);text-decoration:none;font-weight:500;font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a svg{width:17px;height:17px}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{color:var(--ink);font-weight:600;border-bottom-color:var(--acc)}
+.tabs a.on svg{color:var(--acc)}
+main{padding:18px max(16px,env(safe-area-inset-right)) calc(110px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))!important;max-width:1280px}
+.fab{bottom:calc(18px + env(safe-area-inset-bottom))!important}
+.toast{bottom:calc(92px + env(safe-area-inset-bottom))!important}
+@media(min-width:1000px){
+ .top .in{flex-wrap:nowrap;gap:18px}
+ .tabs a{padding-left:9px;padding-right:9px}
+ .top .bar{width:auto;padding:0;flex:none}
+ .tabs{width:auto;flex:1;margin:0}
+ .tabs a{padding:19px 12px 20px}
+ .top{padding-top:0!important}
+ .top .new{display:inline-flex}
+ .top .lo{display:inline-flex}
+ .fab{display:none!important}
+ main{padding:24px 32px 60px!important}
+ .toast{bottom:28px!important}
+}
+/* liste des commandes */
+.olist{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh)}
+.ohead,.orow{display:grid;grid-template-columns:62px 58px minmax(150px,1.1fr) 96px minmax(0,2.4fr) 88px 96px 104px 124px;gap:12px;align-items:center;padding:0 16px}
+.ohead{font-size:12px;font-weight:600;color:var(--mute);height:40px;border-bottom:1px solid var(--line);background:var(--card2);border-radius:12px 12px 0 0;position:sticky;top:var(--hh,0);z-index:2}
+.ohead .n,.orow .n{text-align:right}
+.ghead{display:flex;align-items:baseline;gap:10px;padding:9px 16px;background:var(--card2);border-bottom:1px solid var(--line);font-weight:650;font-size:13px;position:sticky;top:calc(var(--hh,0px) + 40px);z-index:1}
+.ghead span{font-weight:500;color:var(--mute);font-size:12.5px}
+.orow{min-height:60px;padding-top:9px;padding-bottom:9px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s}
+.orow:last-child{border-bottom:0;border-radius:0 0 12px 12px}
+.orow:hover{background:color-mix(in srgb,var(--acc) 4%,var(--card))}
+.orow.retire{opacity:.5}
+.c-no{font-size:12.5px;font-weight:600;color:var(--mute);font-variant-numeric:tabular-nums}
+.c-h{font-weight:650;font-variant-numeric:tabular-nums}
+.c-cl b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.c-cl small{color:var(--mute);font-size:12.5px;white-space:nowrap}
+.c-ct{font-size:13px;color:var(--mute);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+.c-ac,.c-re{font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap}.c-re b{font-weight:600}
+.c-act{text-align:right}
+.c-act .btn{width:100%}
+.mo{display:none}
+.cnote{color:var(--amb);font-weight:600}
+@media(max-width:999px){
+ .ohead{display:none}
+ .ghead{top:var(--hh,0);border-radius:0}
+ .olist .ghead:first-child{border-radius:12px 12px 0 0}
+ .orow{grid-template-columns:54px minmax(0,1fr) auto;grid-template-areas:"h cl st" "n ct ct" "md re act";gap:4px 12px;padding:12px 14px;align-items:start}
+ .c-h{grid-area:h;font-size:16px}.c-no{grid-area:n;font-size:12px}
+ .c-cl{grid-area:cl}.c-cl small{display:none}
+ .c-st{grid-area:st;justify-self:end}.c-ct{grid-area:ct}
+ .c-md{grid-area:md;align-self:center}.c-ac{display:none}.c-re{grid-area:re;align-self:center;font-size:13px;color:var(--mute)}
+ .c-act{grid-area:act;align-self:center}.c-act .btn{width:auto}
+ .mo{display:inline}.dko{display:none}
+}
+@media(max-width:999px) and (min-width:600px){.orow{grid-template-columns:60px minmax(0,1fr) auto}}
+@media(min-width:1000px) and (max-width:1360px){#syncTxt{display:none}}
 </style>
 </head>
 <body>
-<aside class="side">
- <div class="brand"><img class="logo" src="icon-192.png" alt=""><div><b>Le Pêcheur de l'Océan</b><small>Commandes des fêtes</small></div></div>
- <nav id="sidenav"></nav>
- <div class="foot"><div class="sync"><i class="dot" id="dot2"></i><span id="syncTxt2">Connexion…</span></div><button class="ghostw" data-logout hidden>Se déconnecter</button></div>
-</aside>
 <div class="app">
- <header class="top"><div class="in">
-  <img class="logo brandm" src="icon-192.png" alt="">
-  <h1 id="title">Le Pêcheur de l'Océan<small>Commandes des fêtes</small></h1>
-  <span class="sp"></span>
-  <div class="sync"><i class="dot" id="dot"></i><span id="syncTxt">Connexion…</span></div>
+ <header class="top" id="top"><div class="in">
+  <div class="bar"><img class="logo brandm" src="icon-192.png" alt=""><h1>Le Pêcheur de l'Océan<small>Commandes des fêtes</small></h1><span class="sp"></span><div class="sync"><i class="dot" id="dot"></i><span id="syncTxt">Connexion…</span></div></div>
+  <nav class="tabs" id="tabs"></nav>
   <button class="btn pri new" data-new><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nouvelle commande</button>
+  <button class="btn out sm lo" data-logout hidden>Déconnexion</button>
  </div></header>
  <main id="main"></main>
 </div>
-<nav class="tabbar" id="tabbar"></nav>
 <button class="fab" data-new id="fab"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Commande</button>
 
 <div class="scrim" id="scrim"></div>
@@ -489,11 +551,10 @@ const plist=()=>Object.entries(prods).map(([id,p])=>({id,...p})).sort((a,b)=>(CA
 const unitsOf=pid=>{const u=prods[pid]?.unites;return u&&u.length?u:['pc','g']};
 
 /* navigation */
-function buildNav(){const h=VIEWS.map(v=>`<a href="#${v.id}" data-v="${v.id}">${ic(v.i)}<span>${v.l}</span></a>`).join('');$('#sidenav').innerHTML=h;$('#tabbar').innerHTML=h}
+function buildNav(){$('#tabs').innerHTML=VIEWS.map(v=>`<a href="#${v.id}" data-v="${v.id}">${ic(v.i)}<span>${v.l}</span></a>`).join('');const t=$('#top'),set=()=>document.documentElement.style.setProperty('--hh',t.offsetHeight+'px');new ResizeObserver(set).observe(t);set()}
 function render(){
  $$('[data-v]').forEach(a=>a.classList.toggle('on',a.dataset.v===view));
  const V=VIEWS.find(v=>v.id===view);
- $('#title').innerHTML=`<span class="dk">${esc(V.t)}</span><small>Le Pêcheur de l'Océan</small>`;
  const showNew=canWrite&&loaded.o&&(view==='commandes'||view==='planning');
  $$('[data-new]').forEach(b=>b.style.display=showNew?'':'none');
  const m=$('#main');
@@ -517,10 +578,24 @@ function vCommandes(){
  <div class="seg">${['tous','attente','prepare','retire'].map(s=>`<button data-st="${s}" class="${stat===s?'on':''}">${s==='tous'?'Toutes':ST[s]}</button>`).join('')}</div>
  <div class="seg plat">${['tous','PLATEAU','EMBALLAGE'].map(s=>`<button data-mode="${s}" class="${mode===s?'on':''}">${s==='tous'?'Tout':MODES[s]+'s'}</button>`).join('')}</div></div>
  ${qq?`<p class="sub">${list.length} résultat(s) sur tous les jours</p>`:''}
- ${list.length?`<div class="list">${list.map(card).join('')}</div>`:emptyOrders(ofDay,qq)}`}
+ ${list.length?orderTable(list,!!qq):emptyOrders(ofDay,qq)}`}
 function emptyOrders(ofDay,qq){
  if(qq||ofDay.length)return '<div class="empty"><b>Aucune commande ne correspond</b>Change les filtres ou la recherche.</div>';
  return `<div class="empty"><b>Aucune commande le ${esc(jl(day))}</b>${canWrite?'Touche « Commande » pour recopier un ticket du carnet.':''}${Object.keys(prods).length?'':'<br><br><a class="btn blue" href="#produits">Commencer par le catalogue</a>'}</div>`}
+function orderTable(list,all){
+ const g=[];list.forEach(o=>{const k=(all?o.jour+' ':'')+((o.heure||'').slice(0,2)||'?');let G=g[g.length-1];if(!G||G.k!==k){G={k,o:[],j:o.jour,h:(o.heure||'').slice(0,2)};g.push(G)}G.o.push(o)});
+ return `<div class="olist"><div class="ohead"><span>N°</span><span>Heure</span><span>Client</span><span>Type</span><span>Contenu</span><span class="n">Acompte</span><span class="n">Reste</span><span>Statut</span><span></span></div>
+ ${g.map(G=>{const p=G.o.filter(o=>o.mode!=='EMBALLAGE').length;return `<div class="ghead">${all?esc(J(G.j).d+' '+J(G.j).n)+' · ':''}${G.h?G.h+'h':'Heure non précisée'}<span>${G.o.length} commande${G.o.length>1?'s':''} · ${p} plateau${p>1?'x':''} · ${G.o.length-p} emballage${G.o.length-p>1?'s':''}</span></div>`+G.o.map(row).join('')}).join('')}</div>`}
+function row(o){const t=totals(o),known=t.n&&!t.miss;
+ const re=t.paid?'<span class="pill paid">Payé</span>':known?`<span class="mo">Reste </span><b>${eur(t.reste)}</b>`:t.ac?`<span class="mo">Acompte ${eur(t.ac)}</span><span class="dko" style="color:var(--mute)">—</span>`:'<span style="color:var(--mute)">—</span>';
+ const nxt={attente:'Prêt',prepare:'Retiré',retire:'Annuler'}[o.statut];
+ return `<div class="orow ${o.statut}" data-open="${o.id}"><span class="c-no">N° ${esc(o.num||'?')}</span><span class="c-h">${esc(o.heure||'--:--')}</span>
+ <span class="c-cl"><b>${esc(o.nom||'Sans nom')}</b><small>${esc(o.tel||'')}</small></span>
+ <span class="c-md"><span class="pill md ${o.mode==='EMBALLAGE'?'EMBALLAGE':'PLATEAU'}">${MODES[o.mode]||'Plateau'}</span></span>
+ <span class="c-ct">${o.consigne||o.notes?`<span class="cnote">${o.consigne?'Consigne':'Remarque'} · </span>`:''}${esc(contentTxt(o))||'<i>Contenu vide</i>'}</span>
+ <span class="c-ac n">${t.ac?eur(t.ac):'—'}</span><span class="c-re n">${re}</span>
+ <span class="c-st"><span class="pill st ${o.statut}">${ST[o.statut]}</span></span>
+ <span class="c-act">${canWrite?`<button class="btn sm ${o.statut==='attente'?'blue':'out'}" data-next="${o.id}">${o.statut==='retire'?'Annuler':'→ '+nxt}</button>`:''}</span></div>`}
 function card(o){const t=totals(o);
  const money=t.paid?'<span class="pill paid">Payé</span>':t.n&&!t.miss?`<span>Reste <b class="num">${eur(t.reste)}</b></span>`:'';
  const nxt={attente:'Prêt',prepare:'Retiré',retire:'Annuler'}[o.statut];
