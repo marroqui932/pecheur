@@ -28,7 +28,7 @@ Hébergement : GitHub Pages. Données : Firebase (Firestore + Authentication).
 
 ### 5. Premier lancement
 1. Ouvre https://marroqui932.github.io/pecheur et connecte-toi.
-2. Onglet Produits : « Charger les 20 produits d'exemple », puis corrige les prix et les poids.
+2. Onglet Produits : « Importer le catalogue de la poissonnerie » (53 produits repris de l'ancienne application), puis renseigne les prix et le poids moyen d'une pièce.
 
 ## Installer sur l'iPhone
 Ouvre le site dans Safari, puis touche Partager > « Sur l'écran d'accueil ». L'app s'ouvre en plein écran avec son icône.
