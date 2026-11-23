@@ -456,6 +456,20 @@ main{padding:18px max(16px,env(safe-area-inset-right)) calc(110px + env(safe-are
 }
 @media(max-width:999px) and (min-width:600px){.orow{grid-template-columns:60px minmax(0,1fr) auto}}
 @media(min-width:1000px) and (max-width:1360px){#syncTxt{display:none}}
+@media print{
+ #printArea .epage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:194mm;height:280mm;break-after:page;page-break-after:always}
+ #printArea .epage:last-child{break-after:auto;page-break-after:auto}
+ #printArea .etq{border:1px dashed #888;padding:7mm 7mm 6mm;display:flex;flex-direction:column;overflow:hidden;break-inside:avoid}
+ #printArea .en{font-size:64pt;font-weight:800;line-height:.95;letter-spacing:-.03em}
+ #printArea .enm{font-size:24pt;font-weight:800;line-height:1.1;margin:2mm 0 3mm;overflow-wrap:anywhere}
+ #printArea .eh{font-size:14pt}#printArea .eh b{font-size:18pt}
+ #printArea .et{font-size:12pt;margin-bottom:3mm}
+ #printArea .etq ul{list-style:none;padding:2mm 0 0;margin:0;border-top:1.5px solid #000;font-size:13pt;line-height:1.4}
+ #printArea .etq li{border:0;padding:0;display:block}
+ #printArea .erq{font-size:10.5pt;font-style:italic;border-left:3px solid #000;padding-left:2mm;margin-top:2mm}
+ #printArea .epay{margin-top:auto;border-top:1.5px solid #000;padding-top:2mm;display:flex;justify-content:space-between;align-items:baseline;font-size:10.5pt}
+ #printArea .epay b{font-size:15pt}
+}
 </style>
 </head>
 <body>
@@ -647,6 +661,7 @@ function vPrint(){const os=printOrders();
  ${dayChips(printDay,'prtday',true)}<div style="height:8px"></div>
  <div class="pcards">
  <div class="panel pcard"><div class="ic">${ic('tag')}</div><b>Bons pour les sacs</b><p>Un bon par commande, 6 par page A4 : grand n° de ticket, heure, contenu, remarque et reste à payer. À découper et glisser dans chaque sac.</p><button class="btn blue" data-print="bons" ${os.length?'':'disabled'}>${ic('print')}Imprimer ${os.length} bon${os.length>1?'s':''}</button></div>
+ <div class="panel pcard"><div class="ic">${ic('tag')}</div><b>Étiquettes à plastifier (A6)</b><p>4 étiquettes par page A4, à découper sur les pointillés et à glisser dans des pochettes A6. Numéro et nom en très gros, puis heure, téléphone, contenu et reste à payer.</p><button class="btn blue" data-print="etiq" ${os.length?'':'disabled'}>${ic('print')}Imprimer ${os.length} étiquette${os.length>1?'s':''}</button></div>
  <div class="panel pcard"><div class="ic">${ic('box')}</div><b>Marchandise à prévoir</b><p>Toutes les quantités par catégorie, en douzaines, pièces et kilos, avec les chiffres de l'an dernier. Pour ton père.</p><button class="btn blue" data-print="prep" ${os.length?'':'disabled'}>${ic('print')}Imprimer la liste</button></div>
  <div class="panel pcard"><div class="ic">${ic('clock')}</div><b>Liste des retraits</b><p>Tableau trié par heure avec une case à cocher, le téléphone, le reste à payer et les consignes. À garder au comptoir.</p><button class="btn blue" data-print="retraits" ${os.length?'':'disabled'}>${ic('print')}Imprimer le tableau</button></div></div>`}
 const printOrders=()=>sortO(orders.filter(o=>(printDay==='all'||o.jour===printDay)));
@@ -656,10 +671,15 @@ function printHTML(kind){const os=printOrders(),when=jl(printDay);let body='',ti
  <ul>${(o.lignes||[]).map(l=>`<li><span><b>${esc(fmtQ(l.qte,l.unite))}</b> ${esc(pname(l))}</span><span>${linePrice(l)==null?'':eur(linePrice(l))}</span></li>`).join('')}</ul>
  ${o.notes?`<div class="rq">${esc(o.notes)}</div>`:''}
  <div class="pay">${t.n&&!t.miss?`<div><span>Total</span><span>${eur(t.t)}</span></div>`:''}${t.cons?`<div><span>Consigne plateau</span><span>${eur(t.cons)}</span></div>`:''}${t.ac?`<div><span>Acompte versé</span><span>− ${eur(t.ac)}</span></div>`:''}<div class="big"><span>${t.paid?'DÉJÀ PAYÉ':'Reste à payer'}</span><span>${t.paid?'':t.miss?'à calculer':eur(t.reste)}</span></div></div></div>`}).join('')}</div>`}
+ if(kind==='etiq'){title='Étiquettes · '+when;const pages=[];for(let i=0;i<os.length;i+=4)pages.push(os.slice(i,i+4));
+  body=pages.map(pg=>`<div class="epage">${pg.map(o=>{const t=totals(o);return `<div class="etq"><div class="en">${esc(o.num)}</div><div class="enm">${esc(o.nom)}</div>
+  <div class="eh"><b>${esc(o.heure||'--:--')}</b> · ${esc(J(o.jour).d+' '+J(o.jour).n)}</div><div class="et">${esc(o.tel||'')}</div>
+  <ul>${(o.lignes||[]).map(l=>`<li><b>${esc(fmtQ(l.qte,l.unite))}</b> ${esc(pname(l))}</li>`).join('')}</ul>${o.notes?`<div class="erq">${esc(o.notes)}</div>`:''}
+  <div class="epay">${t.paid?'<b>DÉJÀ PAYÉ</b>':`<span>${t.ac?'Acompte '+eur(t.ac)+' · ':''}Reste</span><b>${t.miss?'à calculer':eur(t.reste)}</b>`}</div></div>`}).join('')}</div>`).join('')}
  if(kind==='prep'){title='Marchandise · '+when;const {inv}=(()=>{const os2=os,inv={};os2.forEach(o=>(o.lignes||[]).forEach(l=>{const r=inv[l.pid]=inv[l.pid]||{dz:0,pc:0,g:0,ids:new Set(),nom:l.nom};r[l.unite]+=+l.qte||0;r.ids.add(o.id)}));return{inv}})(),key=lyKey(printDay);
   body=`<h1>Marchandise à prévoir</h1><p class="meta">${esc(when)} · ${os.length} commandes</p><table><tr><th>Produit</th><th>Cmd</th><th>À prévoir</th><th>Détail</th><th>L'an dernier</th></tr>${CATS.map(c=>{const l=plist().filter(p=>p.cat===c&&inv[p.id]);return l.length?`<tr class="c"><td colspan="5">${c}</td></tr>`+l.map(p=>{const r=inv[p.id],ly=LY[p.id]?.[key];return `<tr><td>${esc(p.nom)}</td><td class="r">${r.ids.size}</td><td class="r"><b>${invMain(r,p.id)}</b></td><td>${invSub(r,p.id)}</td><td class="r">${ly?invMain(ly,p.id):''}</td></tr>`}).join(''):''}).join('')}</table>`}
  if(kind==='retraits'){title='Retraits · '+when;body=`<h1>Retraits</h1><p class="meta">${esc(when)} · ${os.length} commandes</p><table><tr><th>✓</th><th>Heure</th><th>N°</th><th>Nom</th><th>Téléphone</th><th>Reste</th><th>Note</th></tr>${os.map(o=>{const t=totals(o);return `<tr><td class="box">☐</td><td><b>${esc(o.heure||'')}</b>${printDay==='all'?'<br>'+esc(J(o.jour).n):''}</td><td>${esc(o.num)}</td><td>${esc(o.nom)}</td><td>${esc(o.tel||'')}</td><td class="r">${t.paid?'Payé':t.miss?'—':eur(t.reste)}</td><td>${o.consigne?'Consigne. ':''}${esc(o.notes||'')}</td></tr>`}).join('')}</table>`}
- return `<div class="head"><b>Le Pêcheur de l'Océan</b><span>${esc(title)}</span></div>${body}`}
+ return kind==='etiq'?(os.length?body:'<p>Aucune commande.</p>'):`<div class="head"><b>Le Pêcheur de l'Océan</b><span>${esc(title)}</span></div>${body}`}
 
 /* vue produits */
 function vProduits(){
